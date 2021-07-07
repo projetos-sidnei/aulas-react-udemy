@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
-import "./styles.css";
+import './styles.css';
 
-import { loadPosts } from "../../utils/load-posts";
-import { Posts } from "../../components/Posts";
-import { Button } from "../../components/Button";
-import { TextInput } from "../../components/TextInput";
+import { loadPosts } from '../../utils/load-posts';
+import { Posts } from '../../components/Posts';
+import { Button } from '../../components/Button';
+import { TextInput } from '../../components/TextInput';
 
 export const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -16,7 +16,7 @@ export const Home = () => {
 
   const noMorePosts = page + postsPerPage >= allPosts.length;
 
-  const handleLoadPosts = useCallback (async (page, postsPerPage) => {
+  const handleLoadPosts = useCallback(async (page, postsPerPage) => {
     const postAndPhotos = await loadPosts();
     setPosts(postAndPhotos.slice(page, postsPerPage));
     setAllPosts(postAndPhotos);
@@ -31,35 +31,32 @@ export const Home = () => {
     const nextPosts = allPosts.slice(nextPage, nextPage + postsPerPage);
     posts.push(...nextPosts);
     setPosts(posts);
-    setPage(nextPage)
+    setPage(nextPage);
   };
 
- const handleChange = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target;
     setSearchValue(value);
   };
 
-  const filteredPosts = !!searchValue
-  ? allPosts.filter((post) => {
-      return post.title.toLowerCase().includes(searchValue.toLowerCase());
-    })
-  : posts;
+  const filteredPosts = searchValue
+    ? allPosts.filter((post) => {
+        return post.title.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    : posts;
 
   return (
     <section className="container">
       <div className="search-container">
         {!!searchValue && <h1>Search value: {searchValue}</h1>}
-        <TextInput
-          searchValue={searchValue}
-          handleChange={handleChange}
-        />
+        <TextInput searchValue={searchValue} handleChange={handleChange} />
       </div>
       {filteredPosts.length > 0 && <Posts posts={filteredPosts} />}
       {filteredPosts.length === 0 && <p>Não existem posts ;( </p>}
       <div className="button-container">
         {!searchValue && (
           <Button
-            text={noMorePosts ? "No exists more Posts" : "Load more posts"}
+            text={noMorePosts ? 'No exists more Posts' : 'Load more posts'}
             onClick={loadMorePosts}
             disabled={noMorePosts}
           />
@@ -67,7 +64,7 @@ export const Home = () => {
       </div>
     </section>
   );
-}
+};
 
 // class Home2 extends Component {
 //   state = {

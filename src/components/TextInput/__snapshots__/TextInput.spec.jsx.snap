@@ -5,6 +5,6 @@ exports[`<TextInput /> should match snapchot 1`] = `
   class="text-input"
   placeholder="Type your search"
   type="search"
-  value=""
+  value="testing"
 />
 `;
